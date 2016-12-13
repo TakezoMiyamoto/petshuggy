@@ -16,6 +16,7 @@
   color: #fff;
 }
 
+// navbar
 .navbar-default {
     background: transparent;
     border-color: transparent;
@@ -34,3 +35,32 @@
 .navbar-default .navbar-toggle .icon-bar {
     background-color: #fff;
 }
+
+// navbar devise 
+.navbar-devise {
+  background: #fff;
+  border-color: #fff;
+  z-index: 10
+}
+
+.navbar-devise .navbar-nav > li > a {
+  color: #222222;
+  font-size: 13px;
+}
+
+.navbar-devise .navbar-brand {
+  color: #222222;
+}
+
+body {
+    color: #222;
+    background-color: #F8F8F8;
+}
+
+
+
+
+
+
+
+

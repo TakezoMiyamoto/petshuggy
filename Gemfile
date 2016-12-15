@@ -24,8 +24,10 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
 
 # devise
-
 gem 'devise'
+
+# noticeの見栄え
+gem 'toastr-rails'
 
 
 group :development, :test do

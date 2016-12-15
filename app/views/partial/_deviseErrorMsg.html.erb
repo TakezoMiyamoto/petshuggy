@@ -1,0 +1,8 @@
+<!-- deviseにエラーがある場合 -->
+<% unless resource.errors.empty? %>
+  <script src="/javascripts/application.js" type="text/javascript" charset="utf-8" async defer>
+    <% resource.errors.full_messages.each do |msg| %>
+      toastr.error('<%= msg %>');
+    <% end %>
+  </script>
+<% end %>

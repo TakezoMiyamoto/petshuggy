@@ -6,7 +6,8 @@
     <h2>登録</h2>
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
+        <!-- エラーメッセージwith toastr -->
+        <%= render 'padtial/deviseErrorMsg' %>
 
         <div class="form-group">
           <%= f.label :email %><br />

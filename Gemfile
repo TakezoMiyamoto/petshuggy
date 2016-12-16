@@ -26,6 +26,8 @@ gem 'sass-rails', '>= 3.2'
 # devise
 gem 'devise'
 
+gem 'omniauth-facebook'
+
 # noticeの見栄え
 gem 'toastr-rails'
 

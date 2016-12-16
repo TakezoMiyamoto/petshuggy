@@ -2,7 +2,7 @@
 
 <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
   <!-- エラーメッセージwith toastr -->
-  <%= render 'padtial/deviseErrorMsg' %>
+  <%= render 'partial/deviseErrorMsg' %>
 
   <div class="field">
     <%= f.label :email %><br />

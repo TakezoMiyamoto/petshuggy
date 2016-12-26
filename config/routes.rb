@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   root to: "pages#index"
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", :registrations => 'registrations' }
   
   resources :users, only: [:show]
   # The priority is based upon order of creation: first created -> highest priority.

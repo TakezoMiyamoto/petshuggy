@@ -9,6 +9,9 @@ class ListingsController < ApplicationController
   end
 
   def new
+
+    @listing = current_user.listings.build
+    
   end
 
   def create

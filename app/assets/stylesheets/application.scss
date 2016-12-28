@@ -69,28 +69,30 @@
 
 // プロフィール画像
 .profile-0 {
-  width: 28px;
-  height: 28px;
+    width: 28px !important;
+    height: 28px !important;
 }
 
 .profile-1 {
-  width: 50px;
-  height: 50px;
+  width: 50px !important;
+  height: 50px !important;
 }
 
 .profile-2 {
-  width: 100px;
-  height: 100px;
+  width: 100px !important;
+  height: 100px !important;
 }
 
 .profile-full {
-  width: 30%;
+  width: 30% !important;
+  height: 80px !important;
 }
 
 @media (min-width: 992px){
 .profile-full {
-        width: 100%;
-    }
+        width: 100% !important;
+        height: 180px !important;
+    }    
 }
 
 .row-space-1 {
@@ -244,6 +246,41 @@ span.listing-title {
 
   .panel-list-img {
     height: 170px;
+  }
+}
+// showページのcss
+.container-listing-show {
+  background-color: #fff;
+  border-bottom: 1px solid #dce0e0;
+}
+
+.panel-show {
+  border-radius: 0px;
+  border: none;
+}
+
+.panel-show .panel-heading{
+  background-color: rgba(60,63,64,0.9);
+  color: #fff;
+  border-radius: 0px;
+  border-bottom: 0px;
+}
+
+.panel-show .panel-body{
+  border: 1px solid #eee;
+}
+
+.btn-wide{
+  width: 85%;
+}
+
+//showページのデスクトップcss
+@media (min-width: 992px){
+  .panel-show {
+    position: inherit;
+    width: 296px;
+    z-index: 100;
+    margin-top: -62px;
   }
 }
 

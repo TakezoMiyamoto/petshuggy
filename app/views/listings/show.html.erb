@@ -79,7 +79,7 @@
                         <div class="panel-heading">
                                 <span style="font-size:16px;"><%= @listing.price_pernight %>円（一晩あたり）</span>
                         </div>
-                        
+
                         <div class="panel-body panel-real">         
                             <%= form_for @listing, :html => { multipart: true } do |f| %>                                   
                                 <div class="actions text-center">
@@ -112,8 +112,7 @@
     <!-- レビュー    -->
     <div class="row">
         <div class="col-md-8">
-            <h3 class="row-space-3">このリスティングについて</h3>
-            <p><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %></p>
+            <h3 class="row-space-3">レビュー</h3>
         </div>
 
         <div class="col-md-4">
@@ -124,11 +123,12 @@
     <!-- google map -->
     <div class="row">
         <div class="col-md-8">
+        <h3 class="row-space-3">アクセス</h3>
             <div id="map"></div>
         </div>
 
         <div class="col-md-4">
-        
+
         </div>
     </div>
     <style>
@@ -137,7 +137,16 @@
         height: 350px;
       }
     </style>
+    <!-- 近くのリスティング    -->
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="row-space-3">近くのリスティング</h3>
+        </div>
 
+        <div class="col-md-4">
+
+        </div>
+    </div>
 </div>
 
 <script>

@@ -4,6 +4,7 @@ class ListingsController < ApplicationController
   before_action :set_listing, only: [:update, :basics, :description, :address, :price, :photos, :calendar, :bankaccount, :publish]
 
   def index
+    @listings = current_user.listings
   end
 
   def show

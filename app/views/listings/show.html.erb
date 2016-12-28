@@ -97,13 +97,13 @@
 <!-- メインコンテント -->
 <div class="container">
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <h3 class="row-space-3">このリスティングについて</h3>
                 <p><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %><%= @listing.listing_content %>
                 </p>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             
         </div>
     </div>  
@@ -111,23 +111,23 @@
 
     <!-- レビュー    -->
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <h3 class="row-space-3">レビュー</h3>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
 
         </div>
     </div>
 
     <!-- google map -->
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
         <h3 class="row-space-3">アクセス</h3>
             <div id="map"></div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
 
         </div>
     </div>
@@ -139,11 +139,37 @@
     </style>
     <!-- 近くのリスティング    -->
     <div class="row">
-        <div class="col-md-8">
-            <h3 class="row-space-3">近くのリスティング</h3>
+      <div class="col-md-9">
+          <h3 class="row-space-3">近くのリスティング</h3>
+
+          <% for listing in @listing.nearbys(10) %>
+              <div class="col-md-4">
+                  <div class="panel panel-default">
+                      <div class="panel-heading panel-listing text-center" style="padding: 0;">
+                          <%= link_to(listing) do %>
+                              <%= image_tag listing.photos[0].image.url(:medium)  if listing.photos.length > 0 %>
+                          <% end %>
+                      </div>
+
+                      <div class="panel-body">
+                          <div class="row">
+                              <div class="col-md-8 col-xs-8">
+                                  <%= link_to listing.listing_title, listing %><br>
+                              </div>
+                              <div class="col-md-3 col-xs-3">
+                                  <%= image_tag listing.user.image,class:"img-circle profile-1" %>
+                              </div>
+                              <div class="price-card">
+                                  <%= listing.price_pernight %> 円     
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          <% end %>
+
         </div>
 
-        <div class="col-md-4">
 
         </div>
     </div>

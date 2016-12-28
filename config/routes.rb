@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :listings do
-    resources :reservations, only[:create]
+    resources :reservations, only: [:create]
   end
 
   get 'manage-listing/:id/basics' => 'listings#basics', as: 'manage_listing_basics'

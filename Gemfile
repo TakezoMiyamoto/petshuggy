@@ -38,7 +38,11 @@ gem 'aws-sdk', '~> 2.3'
 # 画像をドラッグ＆ドロップでやれるライブラリー
 gem 'dropzonejs-rails'
 
+# 環境変数の取り扱いが楽になるgem
 gem "figaro", "~> 1.1.0"
+
+# 地図を導入する
+gem 'geocoder'
 
 group :production do
   gem 'pg'

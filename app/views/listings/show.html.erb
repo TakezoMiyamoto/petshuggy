@@ -220,4 +220,163 @@
 </script>
 
 <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6d9V2bIz_nS7qcC3ve4mxCafO2bAmLEY&callback=initMap"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6d9V2bIz_nS7qcC3ve4mxCafO2bAmLEY&callback=initMap">
+</script>
+
+
+<script>
+$(function() {
+
+  //日付について、それが選択不可能なものかを決める関数
+  // inArray()について:dmyがdisabledDates配列になければ-1を返す
+  function disable(date){
+    dmy = date.getDate() + "-" + (date.getMonth()+1) + "-" + date.getFullYear();
+    return [$.inArray(dmy,disabledDates) == -1]; //trueを返す
+  }
+
+  // 不可能な日付の配列
+  disabledDates = [];
+
+  //事前にdatepickerに選択不可能な日付をセットするajax
+  $.ajax({
+    url: '/setdate',
+    // this data is data for sending to url
+    data: {'listing_id': <%= @listing.id %>},
+    dataType: 'json',
+    // callback argument: data is the response data
+    // 下のurlを参考
+    // http://stackoverflow.com/questions/4345045/javascript-loop-between-date-ranges
+    
+    // disabledDates[]にすでに予約されている日付を追加していく
+    success: function(data){
+      $.each(data,function(objID,objValue){
+        for(var d = new Date(objValue.start_date); d <= new Date(objValue.end_date); d.setDate(d.getDate() + 1 )){
+          disabledDates.push($.datepicker.formatDate('d-m-yy',d));
+        }
+      });
+      
+      // start_date欄がクリックされた時の処理
+      $('#reservation_start_date').datepicker({
+        dateFormat: 'dd-mm-yy',
+        minDate: 0,
+        maxDate: '3m',
+        beforeShowDay: disable,
+        // 日付が選択された時の処理
+        onSelect: function(selected){
+          $('#reservation_end_date').datepicker("option","minDate",selected);
+          $('#reservation_end_date').attr('disabled',false);
+
+          var start_date = $(this).datepicker('getDate');
+          var end_date = $('#reservation_end_date').datepicker('getDate');
+          var days = (end_date - start_date)/1000/60/60/24 +1 ;
+
+          var inputs = {
+            'start_date': start_date,
+            'end_date': end_date,
+            'listing_id':<%= @listing.id %>
+          }
+
+          // 選択日に重なりがないかチェックするajax
+          $.ajax({
+              url: "/duplicate",
+              data: inputs,
+              success: function(data){
+                  if (data.duplicate) {
+                      // 重なりがある場合は、エラーメッセイジを表示
+                      // また、合計料金,手数料を隠す
+                      // 予約ボタンの押せないようにする
+                      $('#duplicate-message').removeClass('hidden');
+                      $('#sitter-price').addClass('hidden');
+                      $('#applicaton-fee').addClass('hidden');
+                      $('#total-price').addClass('hidden');
+                      $('.btn-wide').attr('disabled', true);
+                  }else{
+                      // 重なりがない場合は、エラーメッセージをかくす
+                      // 合計料金をtotalに入れる
+                      // total-priceを表示させる
+                      $('#duplicate-message').addClass('hidden');
+                      
+                      var sitter_price = days * <%= @listing.price_pernight %> ;
+                      var applicaton_fee =  Math.round(sitter_price * 0.136) ;
+                      var price_total = sitter_price + applicaton_fee;
+                      $('#sitter-price').removeClass('hidden');
+                      $('#total-price').removeClass('hidden');
+                      $('#applicaton-fee').removeClass('hidden');
+                      $('#sitter-price .col-md-8').text("シッター料:"+"<%= @listing.price_pernight %>"+"円"+" x "+days+"日");
+                      $('#applicaton-fee .col-md-8').text("手数料:シッター料×13.6%");
+                      $('#total-price .col-md-8').text("合計料金");
+
+                      $('#sitter-price .col-md-4').text(sitter_price+"円");
+                      $('#applicaton-fee .col-md-4').text(applicaton_fee+"円");
+                      $('#total-price .col-md-4').text(price_total+"円");
+                      $('#reservation_total_price').val(price_total);
+                      $('.btn-wide').attr('disabled', false);
+                  }
+              }
+          });
+        }
+      });
+
+      // end_date欄がクリックされた時の処理
+      $('#reservation_end_date').datepicker({
+        dateFormat: 'dd-mm-yy',
+        minDate: 0,
+        maxDate: '3m',
+        beforeShowDay: disable,
+        onSelect: function(selected){
+          $('#reservation_start_date').datepicker("option","maxDate",selected);
+
+          var start_date = $('#reservation_start_date').datepicker('getDate');
+          var end_date = $(this).datepicker('getDate');
+          var days = (end_date - start_date)/1000/60/60/24 +1 ;
+
+          var inputs = {
+            'start_date': start_date,
+            'end_date': end_date,
+            'listing_id':<%= @listing.id %>
+          }
+
+          // 選択日に重なりがないかチェックするajax
+          $.ajax({
+              url: "/duplicate",
+              data: inputs,
+              success: function(data){
+                  if (data.duplicate) {
+                     // 重なりがある場合は、エラーメッセ-ジを表示
+                      // 合計料金,手数料を隠す
+                      // 予約ボタンの押せないようにする
+                      $('#duplicate-message').removeClass('hidden');
+                      $('#sitter-price').addClass('hidden');
+                      $('#applicaton-fee').addClass('hidden');
+                      $('#total-price').addClass('hidden');
+                      $('.btn-wide').attr('disabled', true);
+                  }else{
+                      // 重なりがなくokな場合は、エラーメッセージをかくす
+                      // 合計料金をtotalに入れる
+                      // total-priceを表示させる
+                      $('#duplicate-message').addClass('hidden');
+
+                      var sitter_price = days * <%= @listing.price_pernight %> ;
+                      var applicaton_fee =  Math.round(sitter_price * 0.136) ;
+                      var price_total = sitter_price + applicaton_fee;
+                      $('#sitter-price').removeClass('hidden');
+                      $('#total-price').removeClass('hidden');
+                      $('#applicaton-fee').removeClass('hidden');
+                      $('#sitter-price .col-md-8').text("シッター料:"+"<%= @listing.price_pernight %>"+"円"+" x "+days+"日");
+                      $('#applicaton-fee .col-md-8').text("手数料:シッター料×13.6%");
+                      $('#total-price .col-md-8').text("合計料金");
+
+                      $('#sitter-price .col-md-4').text(sitter_price+"円");
+                      $('#applicaton-fee .col-md-4').text(applicaton_fee+"円");
+                      $('#total-price .col-md-4').text(price_total+"円");
+                      $('#reservation_total_price').val(price_total);
+                      $('.btn-wide').attr('disabled', false);
+                  }
+              }
+          });
+        }
+      });
+    }
+  });
+});
+</script>

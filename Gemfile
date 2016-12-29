@@ -47,6 +47,9 @@ gem 'geocoder'
 # date picker
 gem 'jquery-ui-rails'
 
+# 決済機能
+gem 'stripe'
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'

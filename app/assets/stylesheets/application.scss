@@ -307,6 +307,28 @@ span.listing-title {
     padding: 7px 10px;
 }
 
+/*カレンダー用編集*/
+.class-holiday {
+    background: #337ab7 !important;
+    color: #fff !important;
+}
+
+.class-holiday > .ui-state-default {
+    background: #337ab7 !important;
+    color: #fff !important;
+}
+
+.calendar .ui-datepicker {
+    width: 100%;
+}
+.calendar .ui-datepicker .ui-datepicker-current-day {
+    background-color: #fff;
+}
+#datepicker .ui-datepicker .ui-datepicker-current-day a{
+    color: #222;
+}
+
+
 a {
   color: #222;
 }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161228125231) do
+ActiveRecord::Schema.define(version: 20161229130814) do
 
   create_table "listings", force: :cascade do |t|
     t.string   "home_type"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20161228125231) do
     t.integer  "total_price"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.boolean  "self_booking"
   end
 
   add_index "reservations", ["listing_id"], name: "index_reservations_on_listing_id"

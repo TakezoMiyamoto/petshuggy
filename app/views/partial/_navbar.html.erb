@@ -31,6 +31,7 @@
                 <%= image_tag current_user.image, class: "img-circle profile-0" %>
                 <%= current_user.name %>
               <% else %>
+                <%= image_tag current_user.image, class: "img-circle profile-0" %>
                 <%= current_user.email.split("@")[0] %>
               <% end %>
               <span class="caret"></span>

@@ -56,6 +56,8 @@ class ListingsController < ApplicationController
   end
 
   def bankaccount
+    @user = @listing.user
+    session[:listing_id] = @listing.id
   end
 
   def publish

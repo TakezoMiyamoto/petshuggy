@@ -35,6 +35,11 @@ Rails.application.routes.draw do
   get 'manage-listing/:id/bankaccount' => 'listings#bankaccount', as: 'manage_listing_bankaccount'
   get 'manage-listing/:id/publish' => 'listings#publish', as: 'manage_listing_publish'
 
+  # Stripe のルートを定義する
+  get '/connect/oauth' => 'stripe#oauth', as: 'stripe_oauth'
+  get '/connect/confirm' => 'stripe#confirm', as: 'stripe_confirm'
+  get '/connect/deauthorize' => 'stripe#deauthorize', as: 'stripe_deauthorize'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

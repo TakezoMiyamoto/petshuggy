@@ -21,4 +21,10 @@ class User < ActiveRecord::Base
       # user.skip_confirmation!
     end
   end
+
+  def connected?
+    # 自分で定義した'stripe_user_id'がnilではない場合はtrueを返すメソッド
+    !stripe_user_id.nil?
+  end
+
 end

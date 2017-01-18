@@ -1,14 +1,13 @@
 class ReservationsController < ApplicationController
-
+  
   def new
     @listing = Listing.find(params[:listing_id])
     @user = current_user
 
-    @start_date = params[:reservation][:start_date]
-    @end_date = params[:reservation][:end_date]
-    @price_pernight = params[:reservation][:price_pernight]
-    @total_price = params[:reservation][:total_price]
-    
+    @start_date =  params[:reservation][:start_date]
+    @end_date =  params[:reservation][:end_date]
+    @price_pernight =  params[:reservation][:price_pernight]
+    @total_price =  params[:reservation][:total_price]
   end
 
   def index
@@ -22,36 +21,39 @@ class ReservationsController < ApplicationController
   def create
     @listing = Listing.find(params[:listing_id])
 
-    # 自分で自分の部屋を予約する場合(つまり預かれへん日を設定したい場合)
-    if current_user = @listing.user
-      # 選択された日付を","で区切って配列かする
+    # 自分で自分の部屋を予約する場合(カレンダーでの予約作成)
+    if current_user == @listing.user
+      #選択されてた日付 ","で区切って配列化
       selectedDates = params[:reservation][:selectedDates].split(",")
-      # 自分で予約した予約を取り出して変数に打ち込む
-      reservationsByme = @listing.reservations.where(user_id: current_user.id)
 
-      # 以前に自分で予約した日付の配列
+      # 今まで、自分自身で予約した予約を取り出す
+      reservationsByme = @listing.reservations.where(user_id: current_user.id)
+      
+      # 以前、自分自身で選択した日付
       oldSelectedDates = []
 
+      # 以前、自分自身で予約した"予約の日付"を配列に入れていく
       reservationsByme.each do |reservation|
         oldSelectedDates.push(reservation.start_date)
-      end
+      end  
 
-      # 以前に自分で予約した予約を全て一旦消す！
+      # 以前の自身で選択した日付の予約を全て消す
       if oldSelectedDates
         oldSelectedDates.each do |date|
-          @reservation = current_user.reservations.where(start_date:date, end_date:date)
+          @reservation = current_user.reservations.where(start_date:date,end_date:date)
           @reservation.destroy_all
         end
       end
 
+      #新しい日付の予約をクリエイトする
       selectedDates
       if selectedDates
         selectedDates.each do |date|
-          current_user.reservations.create(:listing_id => @listing.id, :start_date => date, :end_date => date, :self_booking => true)
+          current_user.reservations.create(:listing_id => @listing.id,:start_date => date,:end_date => date,:self_booking => true)
         end
       end
-
-      redirect_to :back, notice: "更新しました"
+      
+      redirect_to :back, notice: "更新しました。" 
 
     else   #他人の部屋の予約作成とStripeのpayアクションの実行
       # Find the user to pay.
@@ -86,8 +88,8 @@ class ReservationsController < ApplicationController
       # 予約をパラメーター付与して作成
       @reservation = current_user.reservations.create(reservation_params)          
       redirect_to @reservation.listing, notice: "予約が完了しました。" 
-    end
 
+    end
   end
 
   def setdate

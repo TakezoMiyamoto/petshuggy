@@ -18,6 +18,11 @@ Rails.application.routes.draw do
     resources :reservations, only: [:new, :create]
   end
 
+  #レビュー
+  resources :listings do
+    resources :reviews, only: [:create, :destroy]
+  end
+
   get '/setdate' => 'reservations#setdate'
   get '/duplicate' => 'reservations#duplicate'
 

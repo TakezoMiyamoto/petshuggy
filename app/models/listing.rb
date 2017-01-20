@@ -2,6 +2,7 @@ class Listing < ActiveRecord::Base
   belongs_to :user
   has_many :photos
   has_many :reservations
+  has_many :reviews
   
   #必須項目
   validates :home_type, presence: true

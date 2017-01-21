@@ -127,14 +127,16 @@
 
 
     <!-- レビュー    -->
-    <div class="row">
-        <div class="col-md-9">
-            <h3 class="row-space-3">レビュー</h3>
-        </div>
+    <div class="row row-space-4">
+      <div class="col-md-9">
+        <h3 class="row-space-3">レビュー<%= @reviews.count %>件</h3>
+          <%= render 'reviews/form' if @currentUserBooking && !@currentUserReview %>
+          <%= render 'reviews/list' %>
+      </div>
 
-        <div class="col-md-3">
-
-        </div>
+      <div class="col-md-3">
+        
+      </div>
     </div>
 
     <!-- google map -->

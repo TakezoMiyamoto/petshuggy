@@ -2,6 +2,7 @@
 
 <%= form_for([@listing,@listing.reviews.new]) do |f| %>
   <div id="rate_stars"></div>
+
   <div class="form-group">
     <%= f.text_area :description, rows: 3, class: "form-control" %>
   </div>
@@ -13,3 +14,12 @@
   </div>
   
 <% end %>
+
+<!-- raty 上のid'rate_starsに対応させる-->
+<script type="text/javascript">
+  $("#rate_stars").raty({
+    path: '/assets',
+    scoreName: 'review[rate]',
+    score: 1
+  });
+</script>

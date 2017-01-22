@@ -130,6 +130,7 @@
     <div class="row row-space-4">
       <div class="col-md-9">
         <h3 class="row-space-3">レビュー<%= @reviews.count %>件</h3>
+          <!-- 予約をしているけれども、レビューはまだ書いていない人にフォームを表示 -->
           <%= render 'reviews/form' if @currentUserBooking && !@currentUserReview %>
           <%= render 'reviews/list' %>
       </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170120134600) do
+ActiveRecord::Schema.define(version: 20170123091824) do
 
   create_table "listings", force: :cascade do |t|
     t.string   "home_type"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170120134600) do
     t.datetime "updated_at",      null: false
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "not_checked"
   end
 
   add_index "listings", ["user_id"], name: "index_listings_on_user_id"

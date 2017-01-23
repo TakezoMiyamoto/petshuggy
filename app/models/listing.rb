@@ -12,4 +12,9 @@ class Listing < ActiveRecord::Base
 
   geocoded_by :address   # can also be an IP address
   after_validation :geocode, :if => :address_changed?          # auto-fetch coordinates
+
+  def average_star_rate
+    reviews.count == 0 ? 0 : reviews.average(:rate).round(1)
+     #カウント0の場合は0を返して、それ以外は平均を返す
+  end
 end

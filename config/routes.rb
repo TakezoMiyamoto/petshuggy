@@ -23,6 +23,11 @@ Rails.application.routes.draw do
     resources :reviews, only: [:create, :destroy]
   end
 
+  # メッセージ機能
+  resources :conversations, only: [:index, :create] do
+    resources :messages, only: [:index, :create]
+  end
+
   get '/setdate' => 'reservations#setdate'
   get '/duplicate' => 'reservations#duplicate'
 

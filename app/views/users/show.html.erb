@@ -1,23 +1,21 @@
 <%= render 'partial/navbar' %>
 
 <!-- 認証チェックマーク -->
-<script type="text/javascript" >
-  $(function() {
+<script type="text/javascript">
+  $(function(){
     <% if !@user.email.blank? %>
-      $("#ver-email").attr('class', 'verification-checked');
+      $("#ver-email").attr('class','vertification-checked');
     <% end %>
 
     <% if !@user.phone_number.blank? %>
-      $("#ver-tel").attr('class', 'verification-checked');
+      $("#ver-tel").attr('class','vertification-checked');
     <% end %>
 
     <% if @user.provider == "facebook" %>
-      $("#ver-facebook").attr('class', 'verification-checked');
+      $("#ver-facebook").attr('class','vertification-checked');
     <% end %>
   });
 </script>
-
-
 
 <div class="container">
   <div class="row">
@@ -25,6 +23,13 @@
       <div class="user-profile row-space-4 text-center">
         <%= image_tag @user.image, class: "profile-full img-circle" %>
       </div>
+
+      <!-- send message ボタン -->
+      <% if current_user != @user %>
+        <div class="row-space-2">
+          <%= link_to "メッセージを送る", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post',class: "btn btn-danger btn-full" %>
+        </div>
+      <% end %>
 
       <div class="panel panel-default verifications hidden-xs hidden-sm">
         <div class="panel-heading">
@@ -47,9 +52,9 @@
     </div>
 
     <div class="col-lg-9 col-md-8 col-sm-12">
-      <h1>こんにちわ <%= @user.name %> です！</h1>
+      <h1>こんにちわ <%= @user.name %> です!</h1>
       <p>自己紹介</p>
       <%= @user.description %>
     </div>
-  </div>
+  </div>    
 </div>

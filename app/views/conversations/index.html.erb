@@ -5,7 +5,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
                     Conversations
-                </div>
+                </div>            
                 <% @conversations.each do |conversation| %>
                     <% other = conversation.sender == current_user ? conversation.recipient : conversation.sender %>
                     <% if !conversation.messages.blank? %>
@@ -13,7 +13,7 @@
                             <div class="row">
                                 <div class="col-md-2 text-center row-space-1">
                                     <%= image_tag other.image, class: "img-circle profile-1" %><br>
-                                    <strong><%= other.name %></strong>
+                                    <strong><%= other.name %></strong> 
                                 </div>
                                 <%= link_to conversation_messages_path(conversation) do %>
                                     <div class="col-md-8">
@@ -22,12 +22,13 @@
                                 <% end %>
                                 <div class="col-md-2">
                                     <%= conversation.messages.last.message_time %>
-                                </div>
+                                </div>    
                             </div>
                         </div>
+                        <hr>
                     <% end %>
-                <% end %>
-            </div>
+                <% end %>   
+            </div>    
         </div>
-    </div>
+    </div>    
 </div>

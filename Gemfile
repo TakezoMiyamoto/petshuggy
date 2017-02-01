@@ -50,6 +50,9 @@ gem 'jquery-ui-rails'
 # 決済機能
 gem 'stripe'
 
+gem "private_pub"
+gem "thin"
+
 group :production do
   gem 'pg'
   gem 'rails_12factor'

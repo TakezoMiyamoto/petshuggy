@@ -39,10 +39,63 @@
     <% end %>
   </div>
 
+</div><!-- jumbotron -->
 
-</div>
+<div class="container">  
+  <!-- ご利用の流れ -->
+  <section id="services">
+    <div class="container">
+      <div class="row row-space-4">
+        <div class="col-lg-12 text-center">
+          <h2 class="section-heading">ご利用の流れ</h2>
+          <h3 class="section-subheading">Petshuggyはペットを預けるサービスです</h3>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col-md-4">
+          <%= image_tag 'search-icon'%>
+          <h4 class="service-heading">探す</h4>
+          <p class="text-muted hidden-xs">まず、ペットを預けるペットシッターをこのサイトで検索しましょう。</p>
+        </div>
+        <div class="col-md-4">
+          <%= image_tag 'calendar-icon'%>
+          <h4 class="service-heading">予約する</h4>
+          <p class="text-muted hidden-xs">いいなと思うペットシッターがいたら、ペットを預けたい日にちを予約しましょう。</p>
+        </div>
+        <div class="col-md-4">
+          <%= image_tag 'home-icon'%>
+          <h4 class="service-heading">預ける</h4>
+          <p class="text-muted hidden-xs">予約した日の当日になったら、ペットを預けて、自分たちの時間を楽しみましょう！</p>
+        </div>
+      </div>
+    </div>
+  </section> 
 
-<div>
-<h1>Pages#index</h1>
-<p>Find me in app/views/pages/index.html.erb</p>
+  <!--　おすすめのシッター -->
+  <section id="portfolio" class="bg-light-gray row-space-top-4 row-space-4">
+    <div class="container">
+      <div class="row row-space-2">
+        <div class="col-lg-12 text-center">
+          <h3 class="section-heading">おすすめのシッター紹介</h3>
+          <h4 class="section-subheading">Petshuggy認定のペットシッターです</h4>
+        </div>
+      </div>
+
+      <div class="row">
+        <% @users.each do |user|%>
+          <% if !user.listings.blank?%>
+            <div class="col-md-4 col-sm-6 portfolio-item row-space-2">
+              <%= link_to listing_path(user.listings[0]) do %>
+                <%= image_tag user.listings[0].photos[0].image.url(:medium) %>
+              <% end %>
+              <div class="portfolio-caption">
+                <%= image_tag user.image,class:"img-circle profile-1"%>
+                <span style="font-weight: bold;"><%= user.name %>さん</span>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </section>
 </div>

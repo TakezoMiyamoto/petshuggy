@@ -52,6 +52,10 @@ Rails.application.routes.draw do
 
 
   get '/not_checked' =>'listings#not_checked'
+
+
+  # 検索
+  get '/search' => 'pages#search'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

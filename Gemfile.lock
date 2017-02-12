@@ -286,6 +286,7 @@ DEPENDENCIES
   private_pub
   rails (= 4.2.5)
   rails_12factor
+  responders
   sass-rails (>= 3.2)
   sdoc (~> 0.4.0)
   spring

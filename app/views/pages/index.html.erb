@@ -34,7 +34,7 @@
             <%= text_field_tag :start_date, params[:start_date], placeholder: "チェックイン", class: "form-control" %>
           </div>
           <div class="col-md-2 hidden-xs hidden-sm">
-            <%= text_field_tag :start_date, params[:start_date], placeholder: "チェックイン", class: "form-control" %>
+            <%= text_field_tag :end_date, params[:end_date], placeholder: "チェックアウト", class: "form-control" %>
           </div>
           <div class="col-md-1  col-xs-2" style="padding-left: 0px; ">
             <%= submit_tag "検索", class: "btn btn-danger" %>
@@ -106,6 +106,31 @@
 </div>
 
 <%= render 'pages/footer' %>
+
+<!-- datepickerのスクリプト -->
+<script>
+  $(function() {
+    $("#start_date").datepicker({
+      dateFormat: 'dd-mm-yy',
+      minDate: 0,
+      maxDate: '3m',
+      onSelect: function(selected) {
+        $('#end_date').datepicker("option", "minDate", selected);
+        $('#end_date').attr('disapled', false);
+      }
+    });
+
+    $("#end_date").datepicker({
+      dateFormat: 'dd-mm-yy',
+      minDate: 0,
+      maxDate: '3m',
+      onSelect: function(selected) {
+        $('#start_date').datepicker("option", "maxDate", selected);
+      }
+    });
+  })
+</script>
+
 
 <!-- GoogleMap autocomplete -->
 <script>

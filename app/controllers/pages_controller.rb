@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   end
 
   def search
+    # first commit by takezo
     if params[:search].present?
        session[:address] = params[:search]
 
